@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelly Hu — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jacques+Francois&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --cream:      #F7F5F2;
+      --dark:       #2E2E2E;
+      --sage:       #A8BFA3;
+      --terra:      #D7A58F;
+      --sage-pale:  #D4E4D1;
+      --terra-pale: #F0D9CE;
+      --dark-70:    rgba(46,46,46,0.7);
+      --dark-50:    rgba(46,46,46,0.5);
+      --dark-25:    rgba(46,46,46,0.25);
+      --dark-10:    rgba(46,46,46,0.10);
+      --dark-06:    rgba(46,46,46,0.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Source Serif 4', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(247,245,242,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--dark-10);
+    }
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 48px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'Jacques Francois', serif;
+      font-size: 18px;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      font-family: 'Source Serif 4', serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--dark-50);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--sage);
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:focus-visible {
+      outline: 2px solid var(--sage);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      scroll-margin-top: 68px;
+    }
+    .hero-orb-1 {
+      position: absolute;
+      top: 12%; right: 8%;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,191,163,0.20) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-orb-2 {
+      position: absolute;
+      bottom: 8%; right: 30%;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(215,165,143,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-orb-3 {
+      position: absolute;
+      top: 50%; left: -80px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,191,163,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 48px;
+      padding-top: 68px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--dark-25);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 1px;
+      background: var(--sage);
+    }
+    .hero-name {
+      font-family: 'Jacques Francois', serif;
+      font-size: clamp(80px, 11vw, 152px);
+      line-height: 0.90;
+      letter-spacing: -0.035em;
+      color: var(--dark);
+      margin-bottom: 36px;
+    }
+    .hero-name .dot {
+      color: var(--terra);
+    }
+    .hero-bio {
+      font-size: 17px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--dark-70);
+      max-width: 460px;
+      margin-bottom: 52px;
+    }
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .btn-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark);
+      color: var(--cream);
+      padding: 13px 28px;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-solid:hover { background: var(--sage); transform: translateY(-2px); }
+    .btn-solid:active { transform: translateY(0); }
+    .btn-solid:focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; border-radius: 2px; }
+    .btn-line {
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark-50);
+      text-decoration: none;
+      border-bottom: 1px solid var(--dark-25);
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-line:hover { color: var(--terra); border-color: var(--terra); }
+    .btn-line:focus-visible { outline: 2px solid var(--sage); outline-offset: 4px; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 48px; left: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-scroll-word {
+      font-size: 9px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: var(--dark-25);
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+    }
+    .hero-scroll-line {
+      width: 1px; height: 52px;
+      background: linear-gradient(to bottom, transparent, var(--dark-25));
+      animation: scrollDrop 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollDrop {
+      0%, 100% { opacity: 0.5; transform: translateY(-6px); }
+      50% { opacity: 1; transform: translateY(0px); }
+    }
+
+    /* ─── SHARED SECTION ──────────────────────────────────── */
+    .section-wrap {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .sec-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 12px;
+    }
+    .sec-rule {
+      width: 36px; height: 2px;
+      background: var(--sage);
+      margin-bottom: 20px;
+    }
+    .sec-heading {
+      font-family: 'Jacques Francois', serif;
+      font-size: clamp(38px, 4.5vw, 60px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      margin: 0 0 8px 0;
+    }
+    .sec-heading-light {
+      font-family: 'Jacques Francois', serif;
+      font-size: clamp(38px, 4.5vw, 60px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      margin: 0;
+    }
+
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    .about {
+      padding: 140px 0;
+      scroll-margin-top: 68px;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 88px;
+      align-items: center;
+    }
+    .about-photo-wrap {
+      position: relative;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--sage-pale);
+      box-shadow:
+        4px 8px 24px rgba(46,46,46,0.08),
+        0 2px 4px rgba(46,46,46,0.06);
+    }
+    .about-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-accent-blob {
+      position: absolute;
+      bottom: -28px; right: -28px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: var(--terra-pale);
+      z-index: -1;
+    }
+    .about-accent-line {
+      position: absolute;
+      top: 40px; left: -20px;
+      width: 3px; height: 80px;
+      background: var(--sage);
+      border-radius: 2px;
+    }
+    .about-text p {
+      font-size: 16px;
+      line-height: 1.80;
+      color: var(--dark-70);
+      margin-bottom: 18px;
+    }
+    .about-text p:last-of-type { margin-bottom: 0; }
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid var(--dark-10);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--dark-50);
+      transition: border-color 0.2s ease, color 0.2s ease;
+      cursor: default;
+    }
+    .tag:hover { border-color: var(--sage); color: var(--dark); }
+
+    /* ─── WORK ────────────────────────────────────────────── */
+    .work {
+      background: var(--dark);
+      padding: 140px 0;
+      scroll-margin-top: 68px;
+    }
+    .work-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 72px;
+    }
+    .sec-label-light {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 12px;
+    }
+    .sec-rule-light {
+      width: 36px; height: 2px;
+      background: var(--sage);
+      margin-bottom: 20px;
+    }
+    .resume-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--terra);
+      color: var(--dark);
+      padding: 13px 26px;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+      white-space: nowrap;
+    }
+    .resume-btn:hover { background: var(--terra-pale); transform: translateY(-2px); }
+    .resume-btn:active { transform: translateY(0); }
+    .resume-btn:focus-visible { outline: 2px solid var(--terra); outline-offset: 3px; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .project-card {
+      background: rgba(247,245,242,0.04);
+      border: 1px solid rgba(247,245,242,0.07);
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .project-card:hover {
+      border-color: rgba(168,191,163,0.35);
+      transform: translateY(-5px);
+    }
+    .project-card:focus-visible {
+      outline: 2px solid var(--sage);
+      outline-offset: 2px;
+    }
+    .project-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: rgba(247,245,242,0.06);
+      overflow: hidden;
+      position: relative;
+    }
+    .project-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .project-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(247,245,242,0.18);
+    }
+    .project-body {
+      padding: 22px 24px 24px;
+    }
+    .project-cat {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 8px;
+    }
+    .project-title {
+      font-family: 'Jacques Francois', serif;
+      font-size: 19px;
+      color: var(--cream);
+      margin: 0 0 8px 0;
+      line-height: 1.15;
+    }
+    .project-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: rgba(247,245,242,0.42);
+    }
+
+    /* ─── WORLD JOURNAL ───────────────────────────────────── */
+    .journal {
+      padding: 140px 0;
+      scroll-margin-top: 68px;
+    }
+    .journal-top {
+      margin-bottom: 72px;
+    }
+    .journal-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .journal-sidebar {
+      position: sticky;
+      top: 88px;
+    }
+    .sidebar-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dark-25);
+      margin-bottom: 20px;
+    }
+    .j-tab {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 14px 0 14px 20px;
+      border: none;
+      border-bottom: 1px solid var(--dark-10);
+      border-radius: 0;
+      background: none;
+      font-family: 'Jacques Francois', serif;
+      font-size: 15px;
+      color: var(--dark-25);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .j-tab::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 3px; height: 0;
+      background: var(--terra);
+      border-radius: 2px;
+      transition: height 0.25s ease;
+    }
+    .j-tab.active { color: var(--dark); }
+    .j-tab.active::before { height: 20px; }
+    .j-tab:hover { color: var(--dark-70); }
+    .j-tab:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+    /* Content panels */
+    .j-panel { display: none; }
+    .j-panel.active {
+      display: block;
+      animation: fadeUp 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .j-city {
+      font-family: 'Jacques Francois', serif;
+      font-size: clamp(52px, 7vw, 92px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      margin: 0 0 6px 0;
+    }
+    .j-country {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 36px;
+    }
+    .j-reflection {
+      font-size: 15.5px;
+      line-height: 1.82;
+      color: var(--dark-70);
+      max-width: 640px;
+      margin-bottom: 52px;
+    }
+    .j-reflection p { margin-bottom: 18px; }
+    .j-reflection p:last-child { margin-bottom: 0; }
+    /* Photo grid */
+    .j-photos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 52px;
+    }
+    .j-photo {
+      border-radius: 3px;
+      overflow: hidden;
+      background: var(--sage-pale);
+      position: relative;
+      aspect-ratio: 1/1;
+    }
+    .j-photo:first-child {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+    .j-photo:last-child {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+    .j-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .j-photo-cap {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 10px 14px 10px;
+      background: linear-gradient(to top, rgba(46,46,46,0.55) 0%, transparent 100%);
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(247,245,242,0.90);
+      letter-spacing: 0.04em;
+    }
+    .j-placeholder {
+      width: 100%; height: 100%;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(46,46,46,0.22);
+    }
+    /* Recommendations */
+    .j-recs-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dark-25);
+      margin-bottom: 16px;
+    }
+    .j-rec {
+      display: flex;
+      gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--dark-06);
+    }
+    .j-rec:first-of-type { border-top: 1px solid var(--dark-06); }
+    .j-rec-num {
+      font-family: 'Jacques Francois', serif;
+      font-size: 13px;
+      color: var(--terra);
+      width: 22px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .j-rec-title {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 3px;
+    }
+    .j-rec-note {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--dark-50);
+    }
+
+    /* ─── CONTACT ─────────────────────────────────────────── */
+    .contact {
+      padding: 140px 0 80px;
+      border-top: 1px solid var(--dark-10);
+      scroll-margin-top: 68px;
+    }
+    .contact-grid {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 64px;
+    }
+    .contact-heading {
+      font-family: 'Jacques Francois', serif;
+      font-size: clamp(52px, 7vw, 88px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--dark);
+      margin: 0 0 24px 0;
+    }
+    .contact-sub {
+      font-size: 15.5px;
+      line-height: 1.75;
+      color: var(--dark-50);
+      max-width: 400px;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--dark-50);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    .contact-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 29px; right: 0;
+      height: 1px;
+      background: var(--dark-25);
+      transition: background 0.2s ease;
+    }
+    .contact-link:hover { color: var(--dark); }
+    .contact-link:hover::after { background: var(--terra); }
+    .contact-link:focus-visible { outline: 2px solid var(--sage); outline-offset: 4px; border-radius: 2px; }
+    .contact-link svg {
+      width: 17px; height: 17px;
+      flex-shrink: 0;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    .footer {
+      max-width: 1160px;
+      margin: 80px auto 0;
+      padding: 28px 48px;
+      border-top: 1px solid var(--dark-06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-brand {
+      font-family: 'Jacques Francois', serif;
+      font-size: 13px;
+      color: var(--dark-25);
+      letter-spacing: -0.01em;
+    }
+    .footer-copy {
+      font-size: 11px;
+      color: var(--dark-25);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── GRAIN OVERLAY ───────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 150px 150px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAV ════════════════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">kelly hu</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#journal">Journal</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO ════════════════════════════════════════════════ -->
+  <section id="home" class="hero">
+    <div class="hero-orb-1"></div>
+    <div class="hero-orb-2"></div>
+    <div class="hero-orb-3"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Berkeley, CA · 2026</p>
+      <h1 class="hero-name">Kelly<br>Hu<span class="dot">.</span></h1>
+      <p class="hero-bio">
+        Junior at UC Berkeley studying CS&nbsp;+&nbsp;Data Science. Passionate about education and building technology centered on systems, people, and&nbsp;culture.
+      </p>
+      <div class="hero-cta">
+        <a href="#work" class="btn-solid">View Work</a>
+        <a href="#contact" class="btn-line">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span class="hero-scroll-word">Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═══════════════════════════════════════════════ -->
+  <section id="about" class="about">
+    <div class="section-wrap">
+      <div class="about-grid">
+        <!-- Photo -->
+        <div class="about-photo-wrap">
+          <div class="about-photo">
+            <img src="https://placehold.co/420x560/A8BFA3/F7F5F2?text=your+photo+here" alt="Kelly Hu">
+          </div>
+          <div class="about-accent-blob"></div>
+          <div class="about-accent-line"></div>
+        </div>
+        <!-- Text -->
+        <div class="about-text">
+          <p class="sec-label">About Me</p>
+          <div class="sec-rule"></div>
+          <h2 class="sec-heading">Curious builder,<br>systems thinker.</h2>
+          <p style="margin-top:28px;">I'm a junior at UC Berkeley double majoring in Computer Science and Data Science. I care about how technology shapes — and is shaped by — people, culture, and institutions.</p>
+          <p>When I'm not in the lab or debugging at 2am, I'm exploring new cities, obsessing over public transit systems, or reading about the anthropology of everyday life.</p>
+          <p>I'm looking for opportunities at the intersection of engineering, design, and meaningful impact.</p>
+          <div class="about-tags">
+            <span class="tag">UC Berkeley</span>
+            <span class="tag">Computer Science</span>
+            <span class="tag">Data Science</span>
+            <span class="tag">Education</span>
+            <span class="tag">Systems Thinking</span>
+            <span class="tag">Urban Design</span>
+            <span class="tag">Travel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WORK ════════════════════════════════════════════════ -->
+  <section id="work" class="work">
+    <div class="section-wrap">
+      <div class="work-header">
+        <div>
+          <p class="sec-label-light">Work &amp; Projects</p>
+          <div class="sec-rule-light"></div>
+          <h2 class="sec-heading-light">Things I've built.</h2>
+        </div>
+        <a href="#" class="resume-btn" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M7.5 1.5v8m0 0L4.5 7m3 2.5L10.5 7M1.5 13.5h12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          View Résumé
+        </a>
+      </div>
+      <div class="projects-grid">
+        <!-- Card 1 -->
+        <a href="#" class="project-card" tabindex="0">
+          <div class="project-img">
+            <img src="https://placehold.co/600x338/1c1c1c/A8BFA3?text=project+preview" alt="">
+          </div>
+          <div class="project-body">
+            <p class="project-cat">Data Science · Research</p>
+            <h3 class="project-title">Project Title One</h3>
+            <p class="project-desc">A short description of what this project does, what it explores, and what you learned building it.</p>
+          </div>
+        </a>
+        <!-- Card 2 -->
+        <a href="#" class="project-card" tabindex="0">
+          <div class="project-img">
+            <img src="https://placehold.co/600x338/1c1c1c/D7A58F?text=project+preview" alt="">
+          </div>
+          <div class="project-body">
+            <p class="project-cat">Engineering · Systems</p>
+            <h3 class="project-title">Project Title Two</h3>
+            <p class="project-desc">A short description of what this project does, what it explores, and what you learned building it.</p>
+          </div>
+        </a>
+        <!-- Card 3 -->
+        <a href="#" class="project-card" tabindex="0">
+          <div class="project-img">
+            <img src="https://placehold.co/600x338/1c1c1c/F7F5F2?text=project+preview" alt="">
+          </div>
+          <div class="project-body">
+            <p class="project-cat">Education · Product</p>
+            <h3 class="project-title">Project Title Three</h3>
+            <p class="project-desc">A short description of what this project does, what it explores, and what you learned building it.</p>
+          </div>
+        </a>
+        <!-- Card 4 placeholder -->
+        <a href="#" class="project-card" tabindex="0">
+          <div class="project-img">
+            <div class="project-img-placeholder">Add photo</div>
+          </div>
+          <div class="project-body">
+            <p class="project-cat">Coming Soon</p>
+            <h3 class="project-title">Your Next Project</h3>
+            <p class="project-desc">Placeholder — drop in your next project here when it's ready.</p>
+          </div>
+        </a>
+        <!-- Card 5 placeholder -->
+        <a href="#" class="project-card" tabindex="0">
+          <div class="project-img">
+            <div class="project-img-placeholder">Add photo</div>
+          </div>
+          <div class="project-body">
+            <p class="project-cat">Coming Soon</p>
+            <h3 class="project-title">Your Next Project</h3>
+            <p class="project-desc">Placeholder — drop in your next project here when it's ready.</p>
+          </div>
+        </a>
+        <!-- Card 6 placeholder -->
+        <a href="#" class="project-card" tabindex="0">
+          <div class="project-img">
+            <div class="project-img-placeholder">Add photo</div>
+          </div>
+          <div class="project-body">
+            <p class="project-cat">Coming Soon</p>
+            <h3 class="project-title">Your Next Project</h3>
+            <p class="project-desc">Placeholder — drop in your next project here when it's ready.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WORLD JOURNAL ════════════════════════════════════════ -->
+  <section id="journal" class="journal">
+    <div class="section-wrap">
+      <div class="journal-top">
+        <p class="sec-label">World Journal</p>
+        <div class="sec-rule"></div>
+        <h2 class="sec-heading">Places that<br>shaped me.</h2>
+      </div>
+      <div class="journal-layout">
+        <!-- Sidebar tabs -->
+        <div class="journal-sidebar">
+          <p class="sidebar-label">Destinations</p>
+          <button class="j-tab active" data-city="tokyo">Tokyo</button>
+          <button class="j-tab" data-city="taipei">Taipei</button>
+          <button class="j-tab" data-city="seoul">Seoul</button>
+          <button class="j-tab" data-city="london">London</button>
+          <button class="j-tab" data-city="nyc">New York</button>
+        </div>
+
+        <!-- Journal panels -->
+        <div class="journal-content-area">
+
+          <!-- ── TOKYO ── -->
+          <div class="j-panel active" id="panel-tokyo">
+            <h2 class="j-city">Tokyo</h2>
+            <p class="j-country">Japan · East Asia</p>
+            <div class="j-reflection">
+              <p>Tokyo surprised me most with how a city of 14 million could feel so quiet — and so precise. Every system, from the trains to the convenience stores, is optimized to the point of artistry. Nothing is wasted.</p>
+              <p>What I noticed: Tokyo takes invisible infrastructure seriously. The cleanliness, the on-time trains, the silent social contracts — it made me think about design that disappears into daily life.</p>
+              <p>Skip Shibuya crossing. Get a little lost in Shimokitazawa on a Sunday, find a jazz bar at midnight instead.</p>
+            </div>
+            <div class="j-photos">
+              <div class="j-photo">
+                <img src="https://placehold.co/800x400/A8BFA3/F7F5F2?text=Tokyo" alt="">
+                <span class="j-photo-cap">Yanaka, old Tokyo</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/D7A58F/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Shimokitazawa</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/2E2E2E/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Night, Shinjuku</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/F0D9CE/2E2E2E?text=" alt="">
+                <span class="j-photo-cap">Tsukiji market, 7am</span>
+              </div>
+            </div>
+            <p class="j-recs-label">Recommendations</p>
+            <div class="j-rec">
+              <span class="j-rec-num">01</span>
+              <div>
+                <p class="j-rec-title">Jazz bar in Shinjuku, open late</p>
+                <p class="j-rec-note">Tiny underground bar, incredible live sets. Open past midnight on weekends.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">02</span>
+              <div>
+                <p class="j-rec-title">Yanaka Ginza shopping street</p>
+                <p class="j-rec-note">Old Tokyo vibes, friendly cats, and the best melon bread in the city.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">03</span>
+              <div>
+                <p class="j-rec-title">Tsukiji outer market at 7am</p>
+                <p class="j-rec-note">Still magical post-move. Get the tamago sushi and eat standing up.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">04</span>
+              <div>
+                <p class="j-rec-title">Shimokitazawa on a Sunday</p>
+                <p class="j-rec-note">Thrift stores, live music venues, and the coolest locals. No agenda needed.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">05</span>
+              <div>
+                <p class="j-rec-title">The Tokyo metro system</p>
+                <p class="j-rec-note">Just admire it. Study it. There's a reason everyone talks about it.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── TAIPEI ── -->
+          <div class="j-panel" id="panel-taipei">
+            <h2 class="j-city">Taipei</h2>
+            <p class="j-country">Taiwan · East Asia</p>
+            <div class="j-reflection">
+              <p>Taipei felt like home in a way I didn't expect — familiar and foreign at once. The night markets, the warmth of the people, and the small temples tucked into every neighborhood spoke to something older and quieter.</p>
+              <p>What I learned: Taipei holds contradictions with ease. Hyper-modern and deeply traditional. Chaotic and kind. It made me think about how cultural memory survives rapid development.</p>
+              <p>Go to Elephant Mountain at dusk for the skyline, then come down into the city for a bowl of beef noodle soup.</p>
+            </div>
+            <div class="j-photos">
+              <div class="j-photo">
+                <img src="https://placehold.co/800x400/D7A58F/F7F5F2?text=Taipei" alt="">
+                <span class="j-photo-cap">Jiufen hillside</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/A8BFA3/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Raohe night market</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/2E2E2E/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Elephant Mountain</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/D4E4D1/2E2E2E?text=" alt="">
+                <span class="j-photo-cap">Shilin district</span>
+              </div>
+            </div>
+            <p class="j-recs-label">Recommendations</p>
+            <div class="j-rec">
+              <span class="j-rec-num">01</span>
+              <div>
+                <p class="j-rec-title">Elephant Mountain at sunset</p>
+                <p class="j-rec-note">40-minute hike. The Taipei 101 view is worth every step.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">02</span>
+              <div>
+                <p class="j-rec-title">Raohe Night Market</p>
+                <p class="j-rec-note">Better than Shilin for locals. Try the black pepper bun at the temple entrance.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">03</span>
+              <div>
+                <p class="j-rec-title">Lin Dong Fang Beef Noodle</p>
+                <p class="j-rec-note">Order the braised beef, extra broth. Sit at a shared table. Life-changing.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SEOUL ── -->
+          <div class="j-panel" id="panel-seoul">
+            <h2 class="j-city">Seoul</h2>
+            <p class="j-country">South Korea · East Asia</p>
+            <div class="j-reflection">
+              <p>Seoul moves fast — the energy is electric and everything feels intentionally designed to be cool. Walking from Hongdae to Yongsan felt like watching a city that decided it was going to be the future and then made it happen.</p>
+              <p>What struck me was the visual culture: the craft that goes into everyday things, from cafe interiors to street-level packaging design. Seoul taught me that aesthetics are never purely superficial.</p>
+              <p>Go to a jjimjilbang. Eat tteokbokki at 2am. Take the subway everywhere — notice the public art.</p>
+            </div>
+            <div class="j-photos">
+              <div class="j-photo">
+                <img src="https://placehold.co/800x400/2E2E2E/A8BFA3?text=Seoul" alt="">
+                <span class="j-photo-cap">Gyeongbokgung Palace</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/A8BFA3/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Hongdae streets</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/D7A58F/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Han River at night</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/F7F5F2/2E2E2E?text=" alt="">
+                <span class="j-photo-cap">Cafe in Yeonnam-dong</span>
+              </div>
+            </div>
+            <p class="j-recs-label">Recommendations</p>
+            <div class="j-rec">
+              <span class="j-rec-num">01</span>
+              <div>
+                <p class="j-rec-title">Dragon Hill Spa (Yongsan)</p>
+                <p class="j-rec-note">Go late. Multiple floors of baths and saunas. The rooftop is a secret.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">02</span>
+              <div>
+                <p class="j-rec-title">Yeonnam-dong neighborhood</p>
+                <p class="j-rec-note">Best indie cafes in the city. Low tourist traffic, high character.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">03</span>
+              <div>
+                <p class="j-rec-title">Gwangjang Market</p>
+                <p class="j-rec-note">Bindaetteok and makgeolli. Sit at the counter, point at things, eat everything.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── LONDON ── -->
+          <div class="j-panel" id="panel-london">
+            <h2 class="j-city">London</h2>
+            <p class="j-country">United Kingdom · Western Europe</p>
+            <div class="j-reflection">
+              <p>London surprised me with its contradictions — ancient and modern, formal and deeply scrappy. The tube feels like a character study in British social norms. The museums (free!) feel like a small miracle every visit.</p>
+              <p>What I learned: great cities hold their history without being trapped by it. London layers eras — Georgian next to brutalist next to glass tower — and somehow it coheres.</p>
+              <p>Go to Borough Market on a Saturday. Walk along the Thames at golden hour. Find a pub and stay too long.</p>
+            </div>
+            <div class="j-photos">
+              <div class="j-photo">
+                <img src="https://placehold.co/800x400/A8BFA3/F7F5F2?text=London" alt="">
+                <span class="j-photo-cap">Borough Market</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/2E2E2E/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Notting Hill</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/D7A58F/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Thames at dusk</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/F0D9CE/2E2E2E?text=" alt="">
+                <span class="j-photo-cap">Barbican Centre</span>
+              </div>
+            </div>
+            <p class="j-recs-label">Recommendations</p>
+            <div class="j-rec">
+              <span class="j-rec-num">01</span>
+              <div>
+                <p class="j-rec-title">Borough Market (Saturday morning)</p>
+                <p class="j-rec-note">Arrive early. Bring cash. Everything is incredible — especially the cheese.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">02</span>
+              <div>
+                <p class="j-rec-title">The Barbican Centre</p>
+                <p class="j-rec-note">Brutalist complex, great exhibitions, a good bookshop, and an unexpected lake.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">03</span>
+              <div>
+                <p class="j-rec-title">Tate Modern (always free)</p>
+                <p class="j-rec-note">The Turbine Hall installation alone is worth the trip every time.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── NEW YORK ── -->
+          <div class="j-panel" id="panel-nyc">
+            <h2 class="j-city">New York</h2>
+            <p class="j-country">United States · East Coast</p>
+            <div class="j-reflection">
+              <p>New York validates all your ambition and exhausts you equally. It's the only place where I've felt completely anonymous and completely seen in a single subway ride.</p>
+              <p>What I noticed: New York is a reminder that urban density, when it works, creates the richest social texture. The accidental encounters, the overheard conversations, the shared public space.</p>
+              <p>Skip Midtown. Go to the outer boroughs. Eat a bagel at 8am and take the 1 train south with no plan.</p>
+            </div>
+            <div class="j-photos">
+              <div class="j-photo">
+                <img src="https://placehold.co/800x400/2E2E2E/D7A58F?text=New+York" alt="">
+                <span class="j-photo-cap">Lower East Side</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/A8BFA3/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">The High Line</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/D7A58F/F7F5F2?text=" alt="">
+                <span class="j-photo-cap">Bushwick, Brooklyn</span>
+              </div>
+              <div class="j-photo">
+                <img src="https://placehold.co/400x400/F7F5F2/2E2E2E?text=" alt="">
+                <span class="j-photo-cap">Flushing, Queens</span>
+              </div>
+            </div>
+            <p class="j-recs-label">Recommendations</p>
+            <div class="j-rec">
+              <span class="j-rec-num">01</span>
+              <div>
+                <p class="j-rec-title">Flushing, Queens</p>
+                <p class="j-rec-note">Best Chinese food outside of China. Go hungry, order aggressively, stay late.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">02</span>
+              <div>
+                <p class="j-rec-title">The Met (pay what you wish)</p>
+                <p class="j-rec-note">Spend 4 hours minimum. Go on a weekday morning. Skip the European paintings.</p>
+              </div>
+            </div>
+            <div class="j-rec">
+              <span class="j-rec-num">03</span>
+              <div>
+                <p class="j-rec-title">Smalls Jazz Club (Greenwich Village)</p>
+                <p class="j-rec-note">$25 cover, open until 4am. This is the real New York.</p>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end content area -->
+      </div><!-- end layout -->
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ══════════════════════════════════════════════ -->
+  <section id="contact" class="contact">
+    <div class="section-wrap">
+      <div class="contact-grid">
+        <div>
+          <p class="sec-label">Contact</p>
+          <div class="sec-rule"></div>
+          <h2 class="contact-heading">Let's<br>connect.</h2>
+          <p class="contact-sub">Whether you want to talk about a project, an opportunity, or nerd out about cities and technology — I'm here for it.</p>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:kelly8hu@berkeley.edu" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            kelly8hu@berkeley.edu
+          </a>
+          <a href="https://www.linkedin.com/in/kelly-huu/" class="contact-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            linkedin.com/in/kelly-huu
+          </a>
+          <a href="https://github.com/kelly8hu" class="contact-link" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+              <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+            github.com/kelly8hu
+          </a>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <span class="footer-brand">kelly hu</span>
+      <span class="footer-copy">© 2026 · Berkeley, CA</span>
+    </footer>
+  </section>
+
+  <script>
+    // Journal tab switching
+    const tabs = document.querySelectorAll('.j-tab');
+    const panels = document.querySelectorAll('.j-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const city = tab.dataset.city;
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(`panel-${city}`).classList.add('active');
+      });
+    });
+
+    // Nav active state on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navAs = document.querySelectorAll('.nav-links a');
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = e.target.id;
+          navAs.forEach(a => {
+            a.style.color = a.getAttribute('href') === `#${id}` ? 'var(--dark)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.25, rootMargin: '-68px 0px 0px 0px' });
+
+    sections.forEach(s => io.observe(s));
+  </script>
+</body>
+</html>
