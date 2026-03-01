@@ -20,10 +20,11 @@ const mime = {
   '.woff2': 'font/woff2',
   '.woff': 'font/woff',
   '.ttf': 'font/ttf',
+  '.pdf': 'application/pdf',
 };
 
 const server = createServer(async (req, res) => {
-  let url = req.url.split('?')[0];
+  let url = decodeURIComponent(req.url.split('?')[0]);
   let filePath = join(__dirname, url === '/' ? 'index.html' : url);
   const ext = extname(filePath).toLowerCase();
   const contentType = mime[ext] || 'application/octet-stream';
