@@ -719,6 +719,38 @@
       letter-spacing: 0.06em;
     }
 
+    /* ─── HERO PHOTO MORPH ────────────────────────────────── */
+    .hero-photos {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .photo-card {
+      position: absolute;
+      width: 80px;
+      height: 112px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 2px 8px rgba(46,46,46,0.12),
+        0 10px 32px rgba(46,46,46,0.10);
+      background: var(--sage-pale);
+      will-change: transform, opacity;
+      pointer-events: auto;
+    }
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-card:hover {
+      box-shadow:
+        0 4px 16px rgba(46,46,46,0.18),
+        0 14px 40px rgba(46,46,46,0.14);
+    }
+
     /* ─── GRAIN OVERLAY ───────────────────────────────────── */
     body::after {
       content: '';
@@ -749,10 +781,11 @@
 
   <!-- ═══ HERO ════════════════════════════════════════════════ -->
   <section id="home" class="hero">
-    <div class="hero-orb-1"></div>
-    <div class="hero-orb-2"></div>
     <div class="hero-orb-3"></div>
-    <div class="hero-inner">
+    <!-- Photo morph animation — right half of hero.
+         TO REPLACE: edit the IMAGES array in the script below. -->
+    <div id="hero-photos" class="hero-photos" aria-hidden="true"></div>
+    <div class="hero-inner" style="position:relative;z-index:2;">
       <p class="hero-eyebrow">Berkeley, CA · 2026</p>
       <h1 class="hero-name">Kelly<br>Hu<span class="dot">.</span></h1>
       <p class="hero-bio">
@@ -1259,6 +1292,224 @@
     }, { threshold: 0.25, rootMargin: '-68px 0px 0px 0px' });
 
     sections.forEach(s => io.observe(s));
+  </script>
+
+  <!-- ═══ HERO PHOTO MORPH ══════════════════════════════════════
+       Phases: scatter → line → circle (intro, ~2.8s)
+       Then: circle morphs → rainbow arc as you scroll down hero.
+       Photos fade out as About section enters view, and fade back
+       in when the user scrolls back to the top.
+
+       TO REPLACE YOUR PHOTOS: find the IMAGES array below and
+       swap in your own URLs. 8 images, portrait or square crops
+       work best. Keep the same aspect ratio for uniform cards.
+  ════════════════════════════════════════════════════════════════ -->
+  <script>
+  (function () {
+    'use strict';
+
+    // ─── CONFIG ──────────────────────────────────────────────
+    // Replace these with your own photo URLs when ready.
+    var IMAGES = [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&q=80",
+      "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&q=80",
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&q=80",
+      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=300&q=80",
+      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&q=80",
+      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=300&q=80",
+      "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=300&q=80",
+      "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=300&q=80",
+    ];
+
+    var TOTAL  = IMAGES.length;
+    var CARD_W = 80;
+    var CARD_H = 112;
+
+    // ─── STATE ───────────────────────────────────────────────
+    var cards          = [];
+    var scatterPos     = [];
+    var introComplete  = false;
+    var raf            = null;
+
+    // ─── BOOT ────────────────────────────────────────────────
+    function boot() {
+      var container = document.getElementById('hero-photos');
+      if (!container) return;
+
+      var dim = getDim();
+
+      // Pre-compute random scatter positions (seeded once)
+      scatterPos = IMAGES.map(function () {
+        return {
+          x: dim.cx + (Math.random() - 0.5) * dim.cw * 0.55,
+          y: dim.cy + (Math.random() - 0.5) * dim.ch * 0.65,
+          r: (Math.random() - 0.5) * 160,
+          s: 0.55,
+          o: 0,
+        };
+      });
+
+      // Build card elements
+      IMAGES.forEach(function (src, i) {
+        var card = document.createElement('div');
+        card.className = 'photo-card';
+        // Cards near the arc's peak sit visually on top
+        card.style.zIndex = String(TOTAL - Math.round(Math.abs(i - (TOTAL - 1) / 2)));
+        card.innerHTML = '<img src="' + src + '" alt="" loading="lazy">';
+        container.appendChild(card);
+        cards.push(card);
+      });
+
+      // Start: scatter (instant, opacity 0)
+      applyPos(scatterPos, 'none');
+
+      // Intro sequence
+      setTimeout(function () { applyPos(linePos(),   'spring'); }, 450);
+      setTimeout(function () { applyPos(circlePos(), 'spring'); }, 1750);
+      setTimeout(function () {
+        introComplete = true;
+        onScroll();             // sync immediately with current scroll
+      }, 2850);
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll(); // handle refresh-at-scroll case
+    }
+
+    // ─── DIMENSION HELPERS ───────────────────────────────────
+    function getDim() {
+      var c = document.getElementById('hero-photos');
+      var cw = c.offsetWidth;
+      var ch = c.offsetHeight;
+      return {
+        cw: cw, ch: ch,
+        // Anchor: center of the right-hand half of the hero
+        cx: cw * 0.73,
+        cy: ch * 0.50,
+      };
+    }
+
+    // ─── POSITION SETS ───────────────────────────────────────
+    function linePos() {
+      var d = getDim();
+      var spacing = 64;
+      var half = (TOTAL - 1) / 2;
+      return IMAGES.map(function (_, i) {
+        return { x: d.cx + (i - half) * spacing, y: d.cy, r: 0, s: 1, o: 1 };
+      });
+    }
+
+    function circlePos() {
+      var d = getDim();
+      var radius = Math.min(d.ch * 0.21, 190);
+      return IMAGES.map(function (_, i) {
+        var deg = (i / TOTAL) * 360;
+        var rad = deg * Math.PI / 180;
+        return {
+          x: d.cx + Math.cos(rad) * radius,
+          y: d.cy + Math.sin(rad) * radius,
+          r: deg + 90, s: 1, o: 1,
+        };
+      });
+    }
+
+    function arcPos() {
+      var d = getDim();
+      // Arc pivot sits below the visible hero area — cards fan upward like a rainbow.
+      var arcR   = d.ch * 0.56;
+      var pivotX = d.cx;
+      var pivotY = d.ch * 0.94;       // near hero bottom
+      var spread = 86;                // total angular spread in degrees
+      var start  = -90 - spread / 2; // leftmost card angle
+      var step   = spread / (TOTAL - 1);
+
+      return IMAGES.map(function (_, i) {
+        var deg = start + i * step;
+        var rad = deg * Math.PI / 180;
+        return {
+          x: pivotX + Math.cos(rad) * arcR,
+          y: pivotY + Math.sin(rad) * arcR,
+          r: deg + 90, s: 1.25, o: 1,
+        };
+      });
+    }
+
+    // ─── INTERPOLATION ───────────────────────────────────────
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function interpAll(a, b, t) {
+      return a.map(function (pa, i) {
+        return {
+          x: lerp(pa.x, b[i].x, t),
+          y: lerp(pa.y, b[i].y, t),
+          r: lerp(pa.r, b[i].r, t),
+          s: lerp(pa.s, b[i].s, t),
+          o: lerp(pa.o, b[i].o, t),
+        };
+      });
+    }
+
+    // ─── APPLY POSITIONS ─────────────────────────────────────
+    var TRANSITIONS = {
+      none:   'none',
+      spring: 'transform 1s cubic-bezier(0.34,1.56,0.64,1), opacity 0.75s ease',
+      fast:   'transform 0.07s linear, opacity 0.2s ease',
+    };
+
+    function applyPos(positions, mode) {
+      var tr = TRANSITIONS[mode] || 'none';
+      cards.forEach(function (card, i) {
+        var p  = positions[i];
+        var tx = p.x - CARD_W / 2;
+        var ty = p.y - CARD_H / 2;
+        card.style.transition = tr;
+        card.style.transform  = 'translate(' + tx + 'px,' + ty + 'px) rotate(' + p.r + 'deg) scale(' + p.s + ')';
+        card.style.opacity    = p.o;
+      });
+    }
+
+    // ─── SCROLL HANDLER ──────────────────────────────────────
+    function onScroll() {
+      var hero    = document.getElementById('home');
+      var panel   = document.getElementById('hero-photos');
+      var scrollY = window.scrollY || window.pageYOffset;
+      var heroH   = hero.offsetHeight;
+
+      // Fade window: start fading at 62% of hero, gone at 88%
+      var fadeStart = heroH * 0.62;
+      var fadeEnd   = heroH * 0.88;
+
+      if (scrollY >= fadeEnd) {
+        panel.style.opacity       = '0';
+        panel.style.pointerEvents = 'none';
+        return;
+      }
+
+      if (scrollY >= fadeStart) {
+        var t = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+        panel.style.opacity       = String(Math.max(0, 1 - t));
+        panel.style.pointerEvents = 'none';
+      } else {
+        panel.style.opacity       = '1';
+        panel.style.pointerEvents = 'auto';
+      }
+
+      // Morph circle → arc as scroll progresses (only after intro)
+      if (!introComplete) return;
+
+      var morphT    = easeOutCubic(Math.min(scrollY / fadeStart, 1));
+      var positions = interpAll(circlePos(), arcPos(), morphT);
+      applyPos(positions, 'fast');
+    }
+
+    // ─── INIT ────────────────────────────────────────────────
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      requestAnimationFrame(boot);
+    }
+  }());
   </script>
 </body>
 </html>
